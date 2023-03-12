@@ -15,9 +15,6 @@ public class DriverRideHistoryDao extends BaseHibernateDao<DriverRideHistoryEnti
     public List<DriverRideHistoryModel> findAllByUserId(Integer userId, Session currentSession) {
         TypedQuery<DriverRideHistoryEntity> query = currentSession.createQuery(" from DriverRideHistoryEntity where driverRideHistoryId.userId= :userId ", DriverRideHistoryEntity.class);
         query.setParameter("userId", userId);
-        if (query.getResultList().isEmpty()) {
-            return null;
-        }
         List<DriverRideHistoryEntity> driverRideHistories = query.getResultList();
         return driverRideHistories.stream().map(driverRideHistoryEntity -> DriverRideHistoryModel.builder()
                 .driverName(driverRideHistoryEntity.getDriverRideHistoryId().getDriverName())

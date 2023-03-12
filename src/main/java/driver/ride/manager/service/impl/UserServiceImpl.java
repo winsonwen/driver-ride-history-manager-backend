@@ -29,11 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> validateLogin(String username, String password) {
         Session currentSession = sessionFactory.getCurrentSession();
-        return hibernateSession.synchronizeSession(() -> {
-            User user = userDAO.getUserByUsername(username, currentSession);
-            return username.equals(user.getUsername())&& password.equals( user.getPassword()) ? Optional.of(user): Optional.empty();
-
-        }, currentSession);
+        return hibernateSession.synchronizeSession(() -> userDAO.getUserByUsernamePassword(username,password, currentSession), currentSession);
 
     }
 
@@ -41,8 +37,8 @@ public class UserServiceImpl implements UserService {
     public Optional<User> signup(String username, String password) {
         Session currentSession = sessionFactory.getCurrentSession();
         return hibernateSession.synchronizeSession(() -> {
-            User userByUsername = userDAO.getUserByUsername(username, currentSession);
-            if (userByUsername != null) {
+            Optional<User> userOptional = userDAO.getUserByUsernamePassword(username, password, currentSession);
+            if (userOptional.isPresent()) {
                 return Optional.empty();
             }
             User user = User.builder().username(username).password(password).build();
