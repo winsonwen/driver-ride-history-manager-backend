@@ -13,7 +13,9 @@ import java.time.LocalDate;
 public class DriverRideHistoryModel {
     private String driverName;
 
-    private LocalDate rideDate;
+    private LocalDate  departingDate;
+
+    private LocalDate  returningDate;
 
     private Integer departingMiles;
 

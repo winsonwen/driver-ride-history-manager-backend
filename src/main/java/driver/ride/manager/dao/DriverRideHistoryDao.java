@@ -18,7 +18,8 @@ public class DriverRideHistoryDao extends BaseHibernateDao<DriverRideHistoryEnti
         List<DriverRideHistoryEntity> driverRideHistories = query.getResultList();
         return driverRideHistories.stream().map(driverRideHistoryEntity -> DriverRideHistoryModel.builder()
                 .driverName(driverRideHistoryEntity.getDriverRideHistoryId().getDriverName())
-                .rideDate(driverRideHistoryEntity.getDriverRideHistoryId().getRideDate())
+                .departingDate(driverRideHistoryEntity.getDriverRideHistoryId().getDepartingDate())
+                .returningDate(driverRideHistoryEntity.getDriverRideHistoryId().getReturningDate())
                 .rideReason(driverRideHistoryEntity.getRideReason())
                 .departingMiles(driverRideHistoryEntity.getDepartingMiles())
                 .returningMiles(driverRideHistoryEntity.getReturningMiles())

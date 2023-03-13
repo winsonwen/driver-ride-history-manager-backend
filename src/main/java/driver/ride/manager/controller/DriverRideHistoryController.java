@@ -32,7 +32,8 @@ public class DriverRideHistoryController {
     public ResponseEntity<String> createDriverRideHistoryRecord(@PathVariable Integer userId, @RequestBody DriverRideHistoryModel driverRideHistoryModelRequest) {
         DriverRideHistoryEntity driverRideHistoryEntity = DriverRideHistoryEntity.builder().driverRideHistoryId(DriverRideHistoryId.builder()
                         .driverName(driverRideHistoryModelRequest.getDriverName())
-                        .rideDate(driverRideHistoryModelRequest.getRideDate())
+                        .departingDate(driverRideHistoryModelRequest.getDepartingDate())
+                        .returningDate(driverRideHistoryModelRequest.getReturningDate())
                         .userId(userId).build())
                 .rideReason(driverRideHistoryModelRequest.getRideReason())
                 .departingMiles(driverRideHistoryModelRequest.getDepartingMiles())
@@ -48,22 +49,9 @@ public class DriverRideHistoryController {
 
     @PostMapping("/{userId}/delete")
     public ResponseEntity<String> deleteDriverRideHistoryRecord(@PathVariable Integer userId, @RequestBody DriverRideHistoryModel driverRideHistoryModelRequest) {
-       driverRideHistoryService.deleteDriverRideHistoryRecord(DriverRideHistoryId.builder().userId(userId).rideDate(driverRideHistoryModelRequest.getRideDate()).driverName(driverRideHistoryModelRequest.getDriverName()).build());
+       driverRideHistoryService.deleteDriverRideHistoryRecord(DriverRideHistoryId.builder().userId(userId).departingDate(driverRideHistoryModelRequest.getDepartingDate()).returningDate(driverRideHistoryModelRequest.getReturningDate()).driverName(driverRideHistoryModelRequest.getDriverName()).build());
 
         return ResponseEntity.ok().body("success");
-        //        DriverRideHistoryEntity driverRideHistoryEntity = DriverRideHistoryEntity.builder().driverRideHistoryId(DriverRideHistoryId.builder()
-//                        .driverName(driverRideHistoryModelRequest.getDriverName())
-//                        .rideDate(driverRideHistoryModelRequest.getRideDate())
-//                        .userId(userId).build())
-//                .rideReason(driverRideHistoryModelRequest.getRideReason())
-//                .departingMiles(driverRideHistoryModelRequest.getDepartingMiles())
-//                .returningMiles(driverRideHistoryModelRequest.getReturningMiles())
-//                .build();
-//        Optional<String> save = driverRideHistoryService.saveDriverRideHistoryRecord(driverRideHistoryEntity);
-//        if (save.isPresent()) {
-//            return ResponseEntity.ok().body("success");
-//        } else {
-//            return ResponseEntity.badRequest().body("Record Already Exist.");
 //        }
     }
 }

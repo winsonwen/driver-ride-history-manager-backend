@@ -19,7 +19,11 @@ public class DriverRideHistoryId implements Serializable {
     @Column(name = "driver_name")
     private String driverName;
 
-    @Column(name = "ride_date")
-    private LocalDate rideDate;
+
+    @Column(name = "departing_date")
+    private LocalDate  departingDate;
+
+    @Column(name = "returning_date")
+    private LocalDate  returningDate;
 
 }
